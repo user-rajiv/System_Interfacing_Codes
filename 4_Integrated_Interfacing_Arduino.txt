@@ -1,0 +1,76 @@
+const int motorPin = 9;
+
+const int IN1 = 8;
+const int IN2 = 10;
+const int ENA = 11;
+
+
+const int pumpPin = 7;
+
+
+unsigned long motorRunTime = 600000UL; 
+
+unsigned long forwardTime = 10000;  
+unsigned long backwardTime = 10000; 
+unsigned long pauseTime = 2000;     
+
+unsigned long pumpTime = 10000; 
+
+
+void setup() {
+
+  pinMode(motorPin, OUTPUT);
+
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(ENA, OUTPUT);
+
+  pinMode(pumpPin, OUTPUT);
+
+  analogWrite(ENA, 200);
+
+
+  digitalWrite(motorPin, HIGH);
+
+  unsigned long startTime = millis();
+
+  while (millis() - startTime < motorRunTime) {
+
+  }
+
+  digitalWrite(motorPin, LOW);
+
+
+
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  delay(forwardTime);
+
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+  delay(pauseTime);
+
+
+
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+  delay(backwardTime);
+
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+  delay(pauseTime);
+
+
+
+  digitalWrite(pumpPin, HIGH);
+  delay(pumpTime);
+  digitalWrite(pumpPin, LOW);
+
+}
+
+
+void loop() {
+
+ 
+
+}

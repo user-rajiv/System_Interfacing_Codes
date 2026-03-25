@@ -1,0 +1,98 @@
+#include <LiquidCrystal.h>
+
+const int motorPin = 9;
+
+const int IN1 = 8;
+const int IN2 = 10;
+const int ENA = 11;
+
+const int pumpPin = 7;
+
+
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+
+unsigned long motorRunTime = 600000UL; 
+
+unsigned long forwardTime = 10000; 
+unsigned long backwardTime = 10000; 
+unsigned long pauseTime = 2000;     
+
+
+unsigned long pumpTime = 10000; 
+
+void showLCD(String line1, String line2) {
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print(line1);
+  lcd.setCursor(0, 1);
+  lcd.print(line2);
+}
+
+void setup() {
+  
+  pinMode(motorPin, OUTPUT);
+
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(ENA, OUTPUT);
+
+  pinMode(pumpPin, OUTPUT);
+
+  
+  analogWrite(ENA, 200);
+
+  
+  lcd.begin(16, 2);
+  showLCD("System Init", "Starting...");
+  delay(2000);
+
+  
+  showLCD("Motor Running", "10 minutes");
+  digitalWrite(motorPin, HIGH);
+  unsigned long startTime = millis();
+  while (millis() - startTime < motorRunTime) {
+    unsigned long elapsed = (millis() - startTime) / 1000;
+    lcd.setCursor(0, 1);
+    lcd.print("Time: ");
+    lcd.print(elapsed);
+    lcd.print("s   "); 
+  }
+  digitalWrite(motorPin, LOW);
+  showLCD("Motor Stopped", "Done");
+  delay(2000);
+
+  
+  showLCD("Actuator", "Forward");
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  delay(forwardTime);
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+  showLCD("Actuator", "Paused");
+  delay(pauseTime);
+
+  
+  showLCD("Actuator", "Backward");
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+  delay(backwardTime);
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+  showLCD("Actuator", "Paused");
+  delay(pauseTime);
+
+  
+  showLCD("Pump Running", "10 seconds");
+  digitalWrite(pumpPin, HIGH);
+  delay(pumpTime);
+  digitalWrite(pumpPin, LOW);
+  showLCD("Pump Stopped", "Done");
+  delay(2000);
+
+  
+  showLCD("System Status", "All Done");
+}
+
+void loop() {
+ 
+}

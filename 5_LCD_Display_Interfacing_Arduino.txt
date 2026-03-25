@@ -1,0 +1,29 @@
+#include <LiquidCrystal.h>
+
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2); 
+
+void setup() {
+  
+  lcd.begin(16, 2);
+
+  
+  lcd.print("Hello, Arduino!");
+  
+  
+  lcd.setCursor(0, 1);
+  lcd.print("LCD Interface");
+}
+
+void loop() {
+  
+  static int counter = 0;
+  
+  lcd.setCursor(14, 0); 
+  lcd.print(counter);
+  
+  counter++;
+  
+  if (counter > 99) counter = 0;
+  
+  delay(500); 
+}

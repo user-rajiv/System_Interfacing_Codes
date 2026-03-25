@@ -1,0 +1,20 @@
+const int motorPin = 9;   
+unsigned long motorRunTime = 600000UL; 
+
+void setup() {
+  pinMode(motorPin, OUTPUT);
+
+  digitalWrite(motorPin, HIGH);
+
+  unsigned long startTime = millis();
+
+  while (millis() - startTime < motorRunTime) {
+    
+  }
+
+  digitalWrite(motorPin, LOW);
+}
+
+void loop() 
+{
+}

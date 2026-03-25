@@ -1,0 +1,19 @@
+const int pumpPin = 7;   
+
+void setup() {
+
+  pinMode(pumpPin, OUTPUT);
+
+  digitalWrite(pumpPin, HIGH);
+
+  
+  delay(10000);  
+
+  
+  digitalWrite(pumpPin, LOW);
+
+}
+
+void loop() {
+  
+}
